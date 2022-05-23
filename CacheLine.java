@@ -1,14 +1,13 @@
 /**
- * Public class to simulate an individual cache line. 
- * Included are methods to check values of the cacheLine and to update accordingly
- * We assume:
- * 	That the driver class is providing a public variable touchCounter
+ * CacheLine class to simulate an individual cache line. Used to keep track
+ * 	of the necessary metadata
+ * For use to populate the list stored in a CacheSet object
  *
  * @author andresfibarra, Spring 2022, COSC51 Homework 7
  */
 public class CacheLine {
 	private boolean valid; 			//valid bit
-	private int tag; 					//tag bits
+	private int tag; 						//tag bits
 	private int lastTouch;
 
 	public CacheLine() {
@@ -17,10 +16,17 @@ public class CacheLine {
 		valid = false; 
 	}
 
+	/**
+	 * Getter for the valid bit
+	 * @return - the truthiness of the valid bit
+	 */
 	public boolean getValid() {
 		return valid; 
 	}
 
+	/**
+	 * Setter for the valid bit to set it to false
+	 */
 	public void setInvalid() {
 		valid = false; 
 	}
@@ -41,56 +47,19 @@ public class CacheLine {
 		lastTouch = touchCounter; 
 	}
 
+	/**
+	 * Getter for the line's tag being stored
+	 * @return - the line's tag
+	 */
 	public int getTag() {
 		return tag; 
 	}
 
+	/**
+	 * Getter for the lastTouch field in the CacheLine
+	 * @return - integer representing last touch
+	 */
 	public int getLastTouch() {
 		return lastTouch; 
 	}
 }
-
-/*
- * use Integer.parseInt(String s, 16) to get an int with the hex numbers I want
- * use bitwise and & with tag mask and set mask to get it out
- * Organization
- * 	have a cacheline object that holds metadata
- * 	have a cache constructor that takes in a parameter for 
- * direct mapped, 2 way, 4 way, fully associative
- * verbose option (boolean)
- * 
- * to simulate, don't keep track of the value of each byte
- * keep track of the metadata
- * 	valid bit
- * 	tag
- * 	when it was last touched
- * 
- * 32 bit address
- * 16 byte block
- * 64 lines total in the cache
- * 
- * direct associative
- * 	one line per set
- * 	--> 64 sets
- * 	22 tag bits
- * 	6 set bits
- * 	4 block bits
- * 
- * 2 way set-associative
- * 	2 lines per set, 32 sets
- * 	23 tag bits
- * 	5 set bits
- * 	4 block bits
- * 
- * 4 way set-associative
- * 	4 lines per set, 16 sets
- * 	24 tag bits
- * 	4 set bits
- * 	4 block bits
- * 
- * fully associative
- * 	a lot of tag bits, no set bits, some block offset bits --> 1 set, 64 lines
- * 	28 tag bits
- * 	0 set bits
- * 	4 block bits
- */

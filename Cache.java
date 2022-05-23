@@ -1,7 +1,8 @@
 import java.util.ArrayList;
 
 /**
- * 
+ * Cache class for program simulating the cache. 
+ * Each Cache object has a list of cacheSet objects
  * 
  * @author andresfibarra, Spring 2022, COSC51 Homework 7
  */
@@ -13,14 +14,14 @@ public class Cache {
 	private int setMaskInt; 
 	boolean verbose; 
 
-	private int hits; 
+	private int hits; 									//counter for total hits and misses
 	private int misses; 
 
 	public Cache(int numSets, int numLines, boolean verbose, int mode) {
 		hits = 0; 
 		misses = 0; 
 
-		//set up tag and set mask
+		//set up tag and set mask according to which cache is being simulated
 		if (mode == 1) {							//if direct
 			tagMaskInt = -1024; 				//0xfffffc00 in decimal
 			setMaskInt = 1008; 					//0x000003f0 in decimal		
@@ -41,6 +42,7 @@ public class Cache {
 		this.verbose = verbose; 
 
 		cacheSets = new ArrayList<>(); 
+
 		//fill in cacheSet with empty cacheLines
 		for (int i = 0; i < numSets; i++) {
 			cacheSets.add(new CacheSet(numLines, verbose)); 
@@ -48,13 +50,11 @@ public class Cache {
 	}
 
 	/**
-	 * Checks cache for the 
-	 * We ensure:
-	 * 	valid in the correct cacheLine is true
-	 * 	The cacheLine's lastTouch is updated
-	 * 	touchCounter is updated
+	 * Checks cache for the provided address
 	 * 
 	 * @param - Address in hexadecimal, as a string
+	 * @param - the type of cache to be simulated. View cacheSimulator simulate()
+	 * 	documentation to see what each mode means
 	 */
 	public void checkCache(String address, int mode) {
 		//extract set bits, tag bits
@@ -75,6 +75,7 @@ public class Cache {
 			tagShift = 4; 
 		}
 
+		//obtain integer versions of setId and tag by bit shifting
 		int setId = setMasked >> setShift; 
 		int tag = tagMasked >> tagShift; 
 
@@ -95,26 +96,13 @@ public class Cache {
 		}
 	}
 
-	public int getHits() {
-		return hits; 
-	}
-
-	public int getMisses() {
-		return misses; 
-	}
-
+	/**
+	 * toString method for the Cache class, printing out the total number of 
+	 * 	hits and misses
+	 */
 	@Override
 	public String toString() {
 		String s = "Hits: " + hits + "; misses: " + misses + "\n"; 
 		return s; 
 	} 
 }
-
-/*
- * direct associative
- * 	one line per set
- * 	--> 64 sets
- * 	22 tag bits
- * 	6 set bits
- * 	4 block bits
-*/

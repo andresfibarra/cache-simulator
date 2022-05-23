@@ -6,15 +6,24 @@ import java.io.IOException;
 /**
  * Driver class for the cache simulation
  * Reads from files and acts accordingly
+ * 
  * @author andresfibarra, Spring 2022, COSC51 Homework 7
  */
 public class CacheSimulator {
-	private boolean verbose; 
+	private boolean verbose; 		//when true, print out status of cache
 
 	public CacheSimulator(boolean verbose) {
 		this.verbose = verbose; 
 	}
 
+	/**
+	 * Reads the trace file and simulates the cache using that information
+	 * If mode = 1, direct mapped cache is simulated, if mode = 2, two-way 
+	 * 	set associative, if mode = 3, 4-way set associative, if mode = 4, 
+	 * 	fully associative is simulated
+	 * @param fileName - path to trace text file
+	 * @param mode - which cache to be simulated
+	 */
 	public void simulate(String fileName, int mode) {
 		BufferedReader input;
 		int numLines; 
@@ -64,7 +73,7 @@ public class CacheSimulator {
 				String[] lineArray = line.split(" "); 
 				String address = lineArray[1]; 			//get the address in hex 
 
-				cache.checkCache(address, mode); 
+				cache.checkCache(address, mode); 		//pass off work to the cache object
 			}
 
 			System.out.println(cache); 
@@ -91,15 +100,6 @@ public class CacheSimulator {
 		sim.simulate(fileName, 2);
 		sim.simulate(fileName, 3);
 		sim.simulate(fileName, 4);
-		// simulateFourWay();
-		// simulateFull(); 
+
 	}
 }
-
-/*
- * methods they'll all need:
- * 
- * to read the file
- * 
- * 
- */
