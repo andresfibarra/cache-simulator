@@ -27,26 +27,26 @@ instead keep track of the metadata
 * 	tag
 * 	when it was last touched
 
-Organizational stats for mode:
-* direct associative
+### Organizational stats for mode:
+direct associative
 * 	one line per set--> 64 sets
 * 	22 tag bits
 * 	6 set bits
 * 	4 block bits
 
-* 2 way set-associative
+2 way set-associative
 * 	2 lines per set, 32 sets
 * 	23 tag bits
 * 	5 set bits
 * 	4 block bits
-* 
-* 4 way set-associative
+
+4 way set-associative
 * 	4 lines per set, 16 sets
 * 	24 tag bits
 * 	4 set bits
 * 	4 block bits
-* 
-* fully associative
+
+fully associative
 * 	a lot of tag bits, no set bits, some block offset bits --> 1 set, 64 lines
 * 	28 tag bits
 * 	0 set bits
